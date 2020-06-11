@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, Alert, TouchableOpacity, StyleSheet, StatusBar, Dimensions } from 'react-native';
 import { Header } from 'react-native-elements'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 import { RNCamera } from 'react-native-camera';
+
+const win = Dimensions.get("window")
 
 export default class Home extends Component {
     constructor(props) {
@@ -24,7 +28,7 @@ export default class Home extends Component {
         return(
             <View style={{flex: 1}}>
                 <Header backgroundColor='white'
-                        leftComponent={{icon: 'menu', color: '#000'}}></Header>
+                        leftComponent={<FontAwesomeIcon icon={faBars} size={25} style={{marginLeft: win.width/30}} onPress={() => this.props.navigation.toggleDrawer()}></FontAwesomeIcon>}></Header>
                 <StatusBar translucent={true} backgroundColor='transparent'></StatusBar>
 
                 <RNCamera style={styles.camera}
@@ -56,8 +60,7 @@ export default class Home extends Component {
                                         }
                                     })
                                     Alert.alert("Product Found", `The product with ID ${code} has been found.`, [{text: "ADD", onPress: () => {
-                                                                                                                                    this.setState({ready: true})
-                                                                                                                                    
+                                                                                                                                    this.setState({ready: true})                                  
                                     }}])
                                 }                                
                             }}
