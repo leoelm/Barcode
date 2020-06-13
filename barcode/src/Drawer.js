@@ -38,7 +38,7 @@ export default class DrawerContent extends Component {
                 <Drawer.Section style={styles.bottomDrawerSection}>
                     <DrawerItem label="Sign Out"
                                 icon = { () => 
-                                    <FontAwesomeIcon icon={faSignOutAlt} size={25} color={"#3d3d3d"}/>
+                                    <FontAwesomeIcon icon={faSignOutAlt} size={25} color={"#3d3d3d"} onPress={() => this.props.navigation.navigate("Start")} />
                                     // <Icon name="exit-to-app"></Icon>
                                 }></DrawerItem>
                 </Drawer.Section>
