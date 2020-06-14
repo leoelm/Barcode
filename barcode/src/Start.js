@@ -1,14 +1,55 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Picker, StatusBar, TouchableOpacity } from 'react-native';
-import { Value } from 'react-native-reanimated';
+import React, { Component, useRef, useEffect } from 'react';
+import { View, Text, StyleSheet, Dimensions, StatusBar, TouchableOpacity, Animated, Image } from 'react-native';
+import {Picker} from '@react-native-community/picker';
 
 const win = Dimensions.get("window")
+
+const FadeIn = (props) => {
+    const fade = new Animated.Value(0)
+
+    React.useEffect(() => {
+        Animated.timing(
+            fade,
+            {
+                toValue: 1,
+                duration: 3000,
+                useNativeDriver: true
+            }
+        ).start();
+    }, [])
+
+    return (
+        <Animated.View
+            style={{
+                ...props.style,
+                opacity: fade
+            }}>
+                {props.children}
+            </Animated.View>
+    );
+}
 
 export default class Start extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: ''
+            name: '',
+        }
+    }
+
+    renderPicture = () => {
+        if(this.state.name === '') {
+            return (
+                <FadeIn>
+                    <Text style={styles.title}>Hallo!</Text>
+                </FadeIn>
+            )
+        } else {
+            return (
+                <FadeIn>
+                    <Image source={require('../Leo.png')} style={styles.image}></Image>
+                </FadeIn>
+            )
         }
     }
 
@@ -17,7 +58,9 @@ export default class Start extends Component {
             <View style={{flex: 1, justifyContent: 'center'}}>
                 <StatusBar translucent={true} backgroundColor='transparent'></StatusBar>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Hallo!</Text>
+                    {/* <FadeIn> */}
+                        {this.renderPicture()}
+                    {/* </FadeIn> */}
                     <Text style={{fontSize: 25}}>Wer bist du?</Text>
                     <Picker selectedValue={this.state.name}
                             style={styles.picker}
@@ -62,5 +105,9 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         position: 'absolute',
         bottom: 20
+    },
+    image: {
+        height: win.height/4,
+        resizeMode: 'contain'
     }
 })

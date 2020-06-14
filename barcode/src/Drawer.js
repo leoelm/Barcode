@@ -20,7 +20,7 @@ export default class DrawerContent extends Component {
                         <View style={styles.userInfoScreen}>
                             <View style={{flexDirection: 'row', marginTop: 15}}>
                                 <Avatar.Image
-                                    source={require('../Profile.png')}
+                                    source={require('../Leo.png')}
                                     size={50} />
                                 <Title style={[styles.title, {marginLeft: 15}]}>Leo Elmecker</Title>
                             </View>
